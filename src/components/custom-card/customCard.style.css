@@ -1,0 +1,27 @@
+.customCard {
+  background: linear-gradient(
+    to right bottom,
+    rgb(243, 42, 7),
+    rgb(0, 157, 255)
+  );
+}
+.customCard_body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.customCard_title {
+  font-size: 3rem;
+  border: 6px double yellowgreen;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.customCard_text {
+  font-size: 1.5rem;
+
+}

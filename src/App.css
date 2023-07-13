@@ -1,0 +1,56 @@
+:root {
+  --color-blue: #0958ce;
+  --color-blue-light: #5b84c4;
+  --color-blue-dark: #053787;
+  --color-blue-darkest: #06163f;
+}
+.header,
+.footer_div {
+  background-color: var(--color-blue-darkest);
+  color: white;
+  min-height: 5rem;
+  position: relative;
+}
+.footer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.pk_logo {
+  width: 8rem;
+}
+.page-main {
+  min-height: 70vh;
+  margin-bottom: 3rem;
+}
+.form {
+  border: 1px solid rgba(55, 54, 54, 0.317);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.836);
+  width: 500px;
+  margin: 3rem auto 0;
+}
+.login_button {
+  background-color: var(--color-blue-dark);
+}
+.login_button:hover {
+  background-color: var(--color-blue-darkest);
+  box-shadow: 2px 2px 5px var(--color-blue-darkest);
+}
+/* utility class */
+.-util-categoryrow {
+     background-color: rgba(255, 64, 0, 0.3);
+
+
+}
+.-util-subcategoryrow {
+    background-color: rgba(255, 64, 0, 0.1);
+
+}
+.-util-productrow {
+    /* background-color: rgba(255, 64, 0, 0.05); */
+
+}
+/* product table */
