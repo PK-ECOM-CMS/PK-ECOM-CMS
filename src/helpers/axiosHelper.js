@@ -1,5 +1,5 @@
 import axios from "axios";
-const rootUrl = process.env.REACT_APP_API_ENDPOINT + "api/v1";
+const rootUrl = process.env.REACT_APP_SERVER_ENDPOINT + "api/v1";
 const adminUserEp = rootUrl + "/admin-user";
 const categoriesEp = rootUrl + "/categories";
 const paymentMethodsEp = rootUrl + "/payment-methods";
