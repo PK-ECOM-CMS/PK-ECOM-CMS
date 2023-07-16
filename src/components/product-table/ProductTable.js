@@ -121,7 +121,8 @@ export const ProductTable = () => {
                                   <td>Product</td>
                                   <td>
                                     <Button
-className="action_button"                                      variant="danger"
+                                      className="action_button"
+                                      variant="danger"
                                       onClick={() =>
                                         handleOnDelete(product._id)
                                       }
@@ -129,7 +130,8 @@ className="action_button"                                      variant="danger"
                                       Delete
                                     </Button>{" "}
                                     <Button
-className="action_button"                                      variant="warning"
+                                      className="action_button"
+                                      variant="warning"
                                       onClick={() => handleOnEdit(product)}
                                     >
                                       Edit
