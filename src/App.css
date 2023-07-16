@@ -4,6 +4,9 @@
   --color-blue-dark: #053787;
   --color-blue-darkest: #06163f;
 }
+body {
+  min-width: 710px;
+}
 .header,
 .footer_div {
   background-color: var(--color-blue-darkest);
@@ -29,7 +32,7 @@
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.836);
-  width: 500px;
+  max-width: 500px;
   margin: 3rem auto 0;
 }
 .login_button {
@@ -41,16 +44,14 @@
 }
 /* utility class */
 .-util-categoryrow {
-     background-color: rgba(255, 64, 0, 0.3);
-
-
+  background-color: rgba(255, 64, 0, 0.3);
 }
 .-util-subcategoryrow {
-    background-color: rgba(255, 64, 0, 0.1);
-
+  background-color: rgba(255, 64, 0, 0.1);
 }
-.-util-productrow {
-    /* background-color: rgba(255, 64, 0, 0.05); */
-
+/* category table */
+.action_button {
+  width: 4.5rem;
+  margin-bottom: 0.2rem;
+  text-align: center;
 }
-/* product table */

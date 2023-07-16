@@ -57,12 +57,14 @@ export const CategoryTable = () => {
                   <td>Category</td>
                   <td>
                     <Button
+                      className="action_button"
                       variant="danger"
                       onClick={() => handleOnDelete(item._id)}
                     >
                       Delete
-                    </Button>
+                    </Button>{" "}
                     <Button
+                      className="action_button"
                       variant="warning"
                       onClick={() => handleOnEdit(item)}
                     >
@@ -87,12 +89,14 @@ export const CategoryTable = () => {
                         <td>Sub-Category</td>
                         <td>
                           <Button
+                            className="action_button"
                             variant="danger"
                             onClick={() => handleOnDelete(cat._id)}
                           >
                             Delete
                           </Button>{" "}
                           <Button
+                            className="action_button"
                             variant="warning"
                             onClick={() => handleOnEdit(cat)}
                           >
