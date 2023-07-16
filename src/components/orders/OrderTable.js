@@ -46,41 +46,44 @@ export const OrderTable = () => {
           </Form.Group>
         </Form>
       </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Status</th>
-            <th>Buyer Name</th>
-            <th>Order Total</th>
-            <th>Payment Status</th>
-            <th>Order Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {display.map((item, i) => {
-            return (
-              i >= ordersStartsAt &&
-              i < ordersEndsAt && (
-                <tr key={i}>
-                  <td>{i + 1}</td>
-                  <td>{item.status}</td>
-                  <td>
-                    {item?.buyer?.firstName} {item.buyer.lastName}
-                  </td>
-                  <td>{item?.totalAmount}</td>
-                  <td>{item?.paymentInfo?.status}</td>
-                  <td>
-                    <Link to={`/orders/${item?._id}`}>
-                      <Button variant="info">View details</Button>
-                    </Link>
-                  </td>
-                </tr>
-              )
-            );
-          })}
-        </tbody>
-      </Table>
+      <div className="table-responsive">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Status</th>
+              <th>Buyer Name</th>
+              <th>Order Total</th>
+              <th>Payment Status</th>
+              <th>Order Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            {display.map((item, i) => {
+              return (
+                i >= ordersStartsAt &&
+                i < ordersEndsAt && (
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{item.status}</td>
+                    <td>
+                      {item?.buyer?.firstName} {item.buyer.lastName}
+                    </td>
+                    <td>{item?.totalAmount}</td>
+                    <td>{item?.paymentInfo?.status}</td>
+                    <td>
+                      <Link to={`/orders/${item?._id}`}>
+                        <Button variant="info">View details</Button>
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+
       <PaginationBasic
         pages={pages}
         active={active}

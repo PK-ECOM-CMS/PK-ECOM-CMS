@@ -11,7 +11,7 @@ export const ItemTable = () => {
     dispatch(getItemsAction());
   }, [dispatch]);
   return (
-    <div>
+    <div className="table-responsive">
       <Table striped bordered hover>
         <thead>
           <tr>
