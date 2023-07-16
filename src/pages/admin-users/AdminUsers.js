@@ -28,40 +28,48 @@ const AdminUsers = () => {
             <Button variant="warning">Add new admin user </Button>
           </Link>
         </div>
-        <Table striped bordered hover className="mt-3">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Status</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {adminUsers.map((item, i) => (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td className={item.status==="active"?"text-success":"text-danger"}>{item.status}</td>
-                <td>
-                  {item.firstName} {item.lastName}
-                </td>
-                <td>{item.email}</td>
-                <td>{item.phone}</td>
-                <td>
-                  <Button
-                    variant="danger"
-                    disabled={item._id === user._id}
-                    onClick={() => handleOnDelete(item._id)}
-                  >
-                    Delete
-                  </Button>
-                </td>
+        <div className="table-responsive">
+          <Table striped bordered hover className="mt-3">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {adminUsers.map((item, i) => (
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td
+                    className={
+                      item.status === "active" ? "text-success" : "text-danger"
+                    }
+                  >
+                    {item.status}
+                  </td>
+                  <td>
+                    {item.firstName} {item.lastName}
+                  </td>
+                  <td>{item.email}</td>
+                  <td>{item.phone}</td>
+                  <td>
+                    <Button
+                      variant="danger"
+                      disabled={item._id === user._id}
+                      onClick={() => handleOnDelete(item._id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </Container>
     </AdminLayout>
   );

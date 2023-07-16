@@ -14,32 +14,35 @@ const Users = () => {
     <AdminLayout>
       <h3>Users Management</h3>
       <hr />
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((item, i) => (
-            <tr key={i}>
-              <td>{i + 1}</td>
-              <td>
-                {item.firstName} {item.lastName}
-              </td>
-                  <td>{ item.email}</td>
-                  <td>{item.phone}</td>
-              <td>
-                <Button variant="link">info</Button>
-              </td>
+      <div className="table-responsive">
+        {" "}
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {users.map((item, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>
+                  {item.firstName} {item.lastName}
+                </td>
+                <td>{item.email}</td>
+                <td>{item.phone}</td>
+                <td>
+                  <Button variant="link">info</Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </AdminLayout>
   );
 };

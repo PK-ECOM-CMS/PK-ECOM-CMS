@@ -4,9 +4,6 @@
   --color-blue-dark: #053787;
   --color-blue-darkest: #06163f;
 }
-body {
-  min-width: 710px;
-}
 .header,
 .footer_div {
   background-color: var(--color-blue-darkest);
