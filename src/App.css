@@ -52,3 +52,11 @@
   margin-bottom: 0.2rem;
   text-align: center;
 }
+/* sample login */
+.samplelogin {
+  background-color: rgba(97, 94, 94, 0.089);
+  padding: 1rem;
+}
+.heading {
+  text-decoration: underline;
+}

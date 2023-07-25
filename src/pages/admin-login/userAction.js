@@ -22,12 +22,11 @@ export const logInUserAction = (data) => async (dispatch) => {
   }
 };
 // register new admin user
-export const registerAdminUserAction = (data) => async (dispatch) => {
+export const registerAdminUserAction = async (data) => {
   const promisePending = postUser(data);
   toast.promise(promisePending, { pending: "Please wait..." });
   const result = await promisePending;
   toast[result.status](result.message);
-  result.status === "success" && dispatch(fetchAdminUsersAction());
   // ==================  The following returned status and message is used to set up as a response on the top of the registration page to read for the user ===================
   return result;
 };
