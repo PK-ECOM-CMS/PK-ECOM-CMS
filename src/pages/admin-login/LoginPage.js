@@ -64,6 +64,11 @@ const LoginPage = () => {
           <p className="text-end">
             <a href="/reset-password">Forgot Password?</a>
           </p>
+          <div className="samplelogin">
+            <div className="heading">Sample login details</div>
+            <div className="emai">Email: Pradeepdhital@gmail.com</div>
+            <div className="password">Password: Pradeep</div>
+          </div>
         </div>
       </Container>
       <Footer></Footer>
