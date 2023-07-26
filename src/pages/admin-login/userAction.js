@@ -2,7 +2,7 @@ import {
   deleteAdminUser,
   getAdminUser,
   getAllAdminUsers,
-  getNewAccessJWT
+  getNewAccessJWT,
   loginAdminUser,
   postUser,
   updateAdminUser,
