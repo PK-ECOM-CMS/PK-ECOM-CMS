@@ -21,15 +21,6 @@ export const logInUserAction = (data) => async (dispatch) => {
     dispatch(setAdminUser(user));
   }
 };
-// register new admin user
-export const registerAdminUserAction = async (data) => {
-  const promisePending = postUser(data);
-  toast.promise(promisePending, { pending: "Please wait..." });
-  const result = await promisePending;
-  toast[result.status](result.message);
-  // ==================  The following returned status and message is used to set up as a response on the top of the registration page to read for the user ===================
-  return result;
-};
 export const logoutUserAction = () => (dispatch) => {
   dispatch(setAdminUser({}));
   sessionStorage.removeItem("accessJWT");

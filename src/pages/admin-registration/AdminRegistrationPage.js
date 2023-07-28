@@ -5,13 +5,12 @@ import Form from "react-bootstrap/Form";
 import { CustomInputField } from "../../components/customInputfields/CustomInputField";
 import { Link } from "react-router-dom";
 import { AdminLayout } from "../../components/layout/AdminLayout";
-import { registerAdminUserAction } from "../admin-login/userAction";
 import { useDispatch } from "react-redux";
+import { postUser } from "../../helpers/axiosHelper";
 const AdminRegistrationPage = () => {
   const [form, setForm] = useState({});
   const [response, setResponse] = useState({});
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
   const handleOnChange = (e) => {
     let { name, value } = e.target;
     if (name === "email") {
@@ -44,7 +43,7 @@ const AdminRegistrationPage = () => {
     if (confirmPassword !== rest.password) {
       return alert("password do not match");
     }
-    const result = await dispatch(registerAdminUserAction(rest));
+    const result = await postUser(rest);
     setResponse(result);
     console.log(response);
   };
@@ -126,7 +125,9 @@ const AdminRegistrationPage = () => {
                 ></CustomInputField>
               ))}
               {error && <Alert variant="danger">{error}</Alert>}
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={error}>
+                Submit
+              </Button>
               <div className="text-end">
                 <Link to="/admin-users">
                   <Button variant="none">&lt; Back</Button>
