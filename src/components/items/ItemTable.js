@@ -15,7 +15,7 @@ export const ItemTable = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th># gfgf</th>
+            <th>#</th>
             <th>Thumbnail</th>
             <th>Status</th>
             <th>Name</th>
