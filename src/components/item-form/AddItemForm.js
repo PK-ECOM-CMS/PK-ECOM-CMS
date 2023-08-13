@@ -138,11 +138,17 @@ export const AddItemForm = () => {
     setFilter(value);
   };
   const handleOnFilterAdd = () => {
-     setForm((prevForm) => ({
-       ...prevForm,
-       filters: [...prevForm.filters, filter],
-     }));
-     setFilter("");
+    if (form.filterName.length === 0) {
+      return alert("Provide the filter name first!");
+    }
+    if (filter.length === 0) {
+      return alert("Provide the filter first!");
+    }
+    setForm((prevForm) => ({
+      ...prevForm,
+      filters: [...prevForm.filters, filter],
+    }));
+    setFilter("");
   };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -246,8 +252,10 @@ export const AddItemForm = () => {
                   value={filter}
                 />
               </Col>
-              <Col sm={2} className="mt-4">
-                <Button onClick={handleOnFilterAdd}>Add</Button>
+              <Col sm={2}>
+                <Button onClick={handleOnFilterAdd} className="addFilterButton">
+                  Add
+                </Button>
               </Col>
             </Row>
             {form.filters.length ? (
@@ -255,7 +263,7 @@ export const AddItemForm = () => {
             ) : null}
           </div>
         </div>
-        <Button variant="success" type="submit">
+        <Button variant="success" type="submit" className="mt-3">
           Add Item
         </Button>
       </Form>
