@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { CustomInputField } from "../customInputfields/CustomInputField";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../pages/categories/categoryAction";
 import { postItemAction } from "../../pages/items/itemAction";
-import { useNavigate } from "react-router-dom";
 import { getProductsAction } from "../../pages/products/productAction";
 const initialState = {
   status: "inactive",
@@ -19,13 +18,16 @@ const initialState = {
   salesStartDate: null,
   salesEndDate: null,
   description: "",
+  filterName: "",
+  filters: [],
 };
 export const AddItemForm = () => {
   const [form, setForm] = useState(initialState);
   const [categoryId, setCategoryId] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(false);
   const [images, setImages] = useState([]);
-  const navigate = useNavigate();
+  const [filter, setFilter] = useState("");
+
   const inputFields = [
     {
       name: "name",
@@ -94,6 +96,11 @@ export const AddItemForm = () => {
     !Products.length && dispatch(getProductsAction());
     !categories.length && dispatch(getCategoriesAction());
   }, [dispatch, Products, categories]);
+  const [hidden, setHidden] = useState(true);
+  const toggleFilter = () => {
+    setHidden(!hidden);
+  };
+
   const handleOnChange = (e) => {
     let { checked, name, value } = e.target;
     if (name === "status") {
@@ -126,12 +133,26 @@ export const AddItemForm = () => {
       };
     });
   };
+  const handleOnFilterChange = (e) => {
+    let { value } = e.target;
+    setFilter(value);
+  };
+  const handleOnFilterAdd = () => {
+     setForm((prevForm) => ({
+       ...prevForm,
+       filters: [...prevForm.filters, filter],
+     }));
+     setFilter("");
+  };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     form.images = images;
+    // dispatch(postItemAction(form));
     console.log(form);
-    const result = dispatch(postItemAction(form));
-    result === "success" && navigate("/items");
+    setForm({
+      ...initialState,
+      filters: [], // Clear filters after submitting
+    });
   };
   return (
     <div>
@@ -199,8 +220,43 @@ export const AddItemForm = () => {
             }
           ></CustomInputField>
         ))}
+        <div>
+          <Button
+            className={hidden ? "addFilter" : "-util-hidden"}
+            onClick={toggleFilter}
+          >
+            Add filter
+          </Button>
+          <div className={hidden ? "-util-hidden" : ""}>
+            <Row className="align-items-center">
+              <Col sm={5} className="my-1">
+                <Form.Label>Filter Name</Form.Label>
+                <Form.Control
+                  name="filterName"
+                  placeholder="Filter Name"
+                  onChange={handleOnChange}
+                />
+              </Col>
+              <Col sm={5} className="my-1">
+                <Form.Label>Filter</Form.Label>
+                <Form.Control
+                  name="filters"
+                  placeholder="Filter"
+                  onChange={handleOnFilterChange}
+                  value={filter}
+                />
+              </Col>
+              <Col sm={2} className="mt-4">
+                <Button onClick={handleOnFilterAdd}>Add</Button>
+              </Col>
+            </Row>
+            {form.filters.length ? (
+              <p>Filters: {form.filters.join(", ")}</p>
+            ) : null}
+          </div>
+        </div>
         <Button variant="success" type="submit">
-          Add Product
+          Add Item
         </Button>
       </Form>
     </div>

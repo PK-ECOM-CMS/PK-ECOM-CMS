@@ -60,3 +60,6 @@
 .heading {
   text-decoration: underline;
 }
+.-util-hidden {
+  display: none;
+}

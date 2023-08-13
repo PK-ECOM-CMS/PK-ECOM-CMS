@@ -20,8 +20,6 @@ export const postItemAction = (data) => async (dispatch) => {
   toast.promise(responsePending, { pending: "please wait..." });
   const { status, message } = await responsePending;
   toast[status](message);
-  // status is returned so that we could use that as a condition in the fomr page to navigate to product page
-  return status;
 };
 
 export const updateItemAction = (data) => async (dispatch) => {

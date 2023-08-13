@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import { CustomInputField } from "../../components/customInputfields/CustomInputField";
 import { Link } from "react-router-dom";
 import { AdminLayout } from "../../components/layout/AdminLayout";
-import { useDispatch } from "react-redux";
 import { postUser } from "../../helpers/axiosHelper";
 const AdminRegistrationPage = () => {
   const [form, setForm] = useState({});
