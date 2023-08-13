@@ -147,10 +147,10 @@ export const AddItemForm = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     form.images = images;
-    // dispatch(postItemAction(form));
+    dispatch(postItemAction(form));
     console.log(form);
     setForm({
-      ...initialState,
+      ...form,
       filters: [], // Clear filters after submitting
     });
   };
