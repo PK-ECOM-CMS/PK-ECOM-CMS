@@ -6,6 +6,7 @@ import { CustomTable } from "../../components/custom-table/CustomTable";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemsAction } from "../items/itemAction";
+import { NoticeModal } from "../../components/noticeModal/NoticeModal";
 
 const Dashboard = () => {
   const { itemsList } = useSelector((state) => state.items);
@@ -97,6 +98,7 @@ const Dashboard = () => {
         ></CustomTable>
       </div>
       {/* last 5 orders */}
+      <NoticeModal></NoticeModal>
     </AdminLayout>
   );
 };
