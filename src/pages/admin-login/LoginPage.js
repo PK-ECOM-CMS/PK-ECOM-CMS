@@ -58,7 +58,7 @@ const LoginPage = () => {
               required
             ></CustomInputField>
             <Button type="submit" className="login_button">
-              Submit
+              Login
             </Button>
           </Form>
           <p className="text-end">
