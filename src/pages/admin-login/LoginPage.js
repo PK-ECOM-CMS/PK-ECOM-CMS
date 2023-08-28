@@ -8,6 +8,7 @@ import { Header } from "../../components/header/Header";
 import { CustomInputField } from "../../components/customInputfields/CustomInputField";
 import { autoLogin, logInUserAction } from "./userAction";
 import { useLocation, useNavigate } from "react-router-dom";
+import { TypingEffect } from "../../components/typing-effect/TypingEffect";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,15 @@ const LoginPage = () => {
             <a href="/reset-password">Forgot Password?</a>
           </p>
           <div className="samplelogin">
-            <div className="heading">Sample login details</div>
+            <div className="heading">
+              <TypingEffect
+                text="Sample login details:"
+                charDelay={100} // Delay between characters in milliseconds
+                pauseDuration={1000} // Duration to pause after typing all characters in milliseconds
+                className="typingEffect"
+              />
+            </div>
+
             <div className="emai">Email: Pradeepdhital@gmail.com</div>
             <div className="password">Password: Pradeep</div>
           </div>

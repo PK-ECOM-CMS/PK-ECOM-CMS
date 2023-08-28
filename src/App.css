@@ -59,6 +59,8 @@
 }
 .heading {
   text-decoration: underline;
+  font-weight: bold;
+  min-height: 1.5rem;
 }
 .-util-hidden {
   display: none;
