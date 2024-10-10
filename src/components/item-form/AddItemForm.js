@@ -11,6 +11,13 @@ const initialState = {
   subCatId: null,
   productId: null,
   name: "",
+  length: "",
+  height: "",
+  width: "",
+  weight: "",
+  fromSuburb: "",
+  fromState: "",
+  fromPostCode: "",
   sku: "",
   quantity: "",
   price: 0,
@@ -34,6 +41,49 @@ export const AddItemForm = () => {
       label: "Name",
       type: "text",
       placeholder: "Item Name",
+      required: true,
+    },
+    {
+      name: "length",
+      label: "Length (cm)",
+      type: "number",
+      placeholder: "Item length",
+      required: true,
+    },
+    {
+      name: "height",
+      label: "Height (cm)",
+      type: "number",
+      placeholder: "Item height",
+      required: true,
+    },
+    {
+      name: "width",
+      label: "Width (cm)",
+      type: "number",
+      placeholder: "Item width",
+      required: true,
+    },
+    {
+      name: "weight",
+      label: "Weight (kg)",
+      type: "decimal",
+      placeholder: "Item weight",
+      required: true,
+    },
+    {
+      name: "fromSuburb",
+      label: "From Suburb",
+      type: "text",
+      placeholder: "Suburb",
+      required: true,
+    },
+   
+    {
+      name: "fromPostCode",
+      label: "From Post Code",
+      type: "text",
+      placeholder: "Enter from post code",
       required: true,
     },
     {
@@ -153,8 +203,8 @@ export const AddItemForm = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     form.images = images;
-    dispatch(postItemAction(form));
     console.log(form);
+    dispatch(postItemAction(form));
     setForm({
       ...form,
       filters: [], // Clear filters after submitting
@@ -215,6 +265,20 @@ export const AddItemForm = () => {
                     </option>
                   )
               )}
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="py-3">
+          <Form.Label>Select State</Form.Label>
+          <Form.Select name="fromState" onChange={handleOnChange} required>
+            <option value="">Select State</option>
+            <option value="ACT">ACT</option>
+            <option value="NSW">NSW</option>
+            <option value="NT">NT</option>
+            <option value="QLD">QLD</option>
+            <option value="SA">SA</option>
+            <option value="TAS">TAS</option>
+            <option value="VIC">VIC</option>
+            <option value="WA">WA</option>
           </Form.Select>
         </Form.Group>
         {inputFields.map((item, i) => (
