@@ -1,5 +1,5 @@
 import axios from "axios";
-const rootUrl = process.env.REACT_APP_SERVER_ENDPOINT + "api/v1";
+const rootUrl = process.env.REACT_APP_SERVER_ENDPOINT + "api/v1/admin";
 const adminUserEp = rootUrl + "/admin-user";
 const categoriesEp = rootUrl + "/categories";
 const paymentMethodsEp = rootUrl + "/payment-methods";
@@ -7,7 +7,7 @@ const itemsEp = rootUrl + "/items";
 const ordersEp = rootUrl + "/orders";
 const usersEp = rootUrl + "/users";
 const reviewsEp = rootUrl + "/reviews";
-const productsEp = rootUrl + "/product";
+const productsEp = rootUrl + "/products";
 
 const apiProcessor = async ({ method, url, data, isPrivate, token }) => {
   try {
