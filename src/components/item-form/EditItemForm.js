@@ -1,3 +1,4 @@
+// ... keep all your existing imports
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { CustomInputField } from "../customInputfields/CustomInputField";
@@ -10,21 +11,30 @@ export const EditItemForm = () => {
   const [form, setForm] = useState({});
   const [categoryId, setCategoryId] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(false);
-const [images, setImages] = useState([]);
+  const [images, setImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
   const [imgToDelete, setImgToDelete] = useState([]);
+
   const { selectedItem } = useSelector((state) => state.items);
   const { categories } = useSelector((state) => state.categories);
   const { Products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
+
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
     !Products.length && dispatch(getProductsAction());
-    setForm(selectedItem);
-    setImages(selectedItem.images);
-    form && setCategoryId(form.catId);
-    form && setSubCategoryId(form.subCatId);
+
+    if (selectedItem) {
+      setForm({
+        ...selectedItem,
+        newFilter: "",
+      });
+      setImages(selectedItem.images || []);
+      setCategoryId(selectedItem.catId);
+      setSubCategoryId(selectedItem.subCatId);
+    }
   }, [dispatch, categories, Products, selectedItem]);
+
   const handleOnChange = (e) => {
     let { checked, name, value } = e.target;
     if (name === "status") {
@@ -38,25 +48,24 @@ const [images, setImages] = useState([]);
     }
     setForm({ ...form, [name]: value });
   };
+
   const handleOnImageSelect = (e) => {
     setNewImages([]);
     const { files } = e.target;
     transformFile(files);
   };
+
   const transformFile = (files) => {
-    if (!files.length) {
-      return;
-    }
+    if (!files.length) return;
     [...files].forEach((img) => {
       const reader = new FileReader();
       reader.readAsDataURL(img);
       reader.onloadend = () => {
-        setNewImages((oldImages) => {
-          return [...oldImages, reader.result];
-        });
+        setNewImages((oldImages) => [...oldImages, reader.result]);
       };
     });
   };
+
   const handleOnImageDelete = (e) => {
     const { checked, value } = e.target;
     if (checked) {
@@ -68,10 +77,11 @@ const [images, setImages] = useState([]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { __v, slug, createdAt, updatedAt, sku, rating, ...rest } = form;
-    const updatedForm = { ...rest, imgToDelete, newImages: newImages };
+    const { __v, slug, createdAt, updatedAt, sku, rating, newFilter, ...rest } = form;
+    const updatedForm = { ...rest, imgToDelete, newImages };
     dispatch(updateItemAction(updatedForm));
   };
+
   const inputFields = [
     {
       name: "name",
@@ -82,53 +92,53 @@ const [images, setImages] = useState([]);
       value: form.name,
     },
     {
-    name: "length",
-    label: "Length (cm)",
-    type: "number",
-    placeholder: "Item length",
-    required: true,
-    value: form.length,
-  },
-  {
-    name: "height",
-    label: "Height (cm)",
-    type: "number",
-    placeholder: "Item height",
-    required: true,
-    value: form.height,
-  },
-  {
-    name: "width",
-    label: "Width (cm)",
-    type: "number",
-    placeholder: "Item width",
-    required: true,
-    value: form.width,
-  },
-  {
-    name: "weight",
-    label: "Weight (kg)",
-    type: "decimal",
-    placeholder: "Item weight",
-    required: true,
-    value: form.weight,
-  },
-  {
-    name: "fromSuburb",
-    label: "From Suburb",
-    type: "text",
-    placeholder: "Suburb",
-    required: true,
-    value: form.fromSuburb,
-  },
-  {
-    name: "fromPostCode",
-    label: "From Post Code",
-    type: "text",
-    placeholder: "Enter from post code",
-    required: true,
-    value: form.fromPostCode,
-  },
+      name: "length",
+      label: "Length (cm)",
+      type: "number",
+      placeholder: "Item length",
+      required: true,
+      value: form.length,
+    },
+    {
+      name: "height",
+      label: "Height (cm)",
+      type: "number",
+      placeholder: "Item height",
+      required: true,
+      value: form.height,
+    },
+    {
+      name: "width",
+      label: "Width (cm)",
+      type: "number",
+      placeholder: "Item width",
+      required: true,
+      value: form.width,
+    },
+    {
+      name: "weight",
+      label: "Weight (kg)",
+      type: "decimal",
+      placeholder: "Item weight",
+      required: true,
+      value: form.weight,
+    },
+    {
+      name: "fromSuburb",
+      label: "From Suburb",
+      type: "text",
+      placeholder: "Suburb",
+      required: true,
+      value: form.fromSuburb,
+    },
+    {
+      name: "fromPostCode",
+      label: "From Post Code",
+      type: "text",
+      placeholder: "Enter from post code",
+      required: true,
+      value: form.fromPostCode,
+    },
     {
       name: "sku",
       label: "SKU",
@@ -190,6 +200,7 @@ const [images, setImages] = useState([]);
       multiple: true,
     },
   ];
+
   return (
     <div>
       <Form className="py-5" onSubmit={handleOnSubmit}>
@@ -202,104 +213,135 @@ const [images, setImages] = useState([]);
             checked={form.status === "active"}
           />
         </Form.Group>
+
         <Form.Group className="py-3">
           <Form.Label>Assign to Category</Form.Label>
           <Form.Select name="catId" onChange={handleOnChange} required>
             <option value="">Select Category</option>
-            {categories.length > 0 &&
-              categories.map(
-                (item, i) =>
-                  !item.catId && (
-                    <option
-                      key={i}
-                      value={item._id}
-                      selected={item._id === form.catId}
-                    >
-                      {item.name}
-                    </option>
-                  )
-              )}
+            {categories.map((item, i) =>
+              !item.catId ? (
+                <option key={i} value={item._id} selected={item._id === form.catId}>
+                  {item.name}
+                </option>
+              ) : null
+            )}
           </Form.Select>
         </Form.Group>
+
         <Form.Group className="py-3">
-          <Form.Label>Assign to sub-category</Form.Label>
+          <Form.Label>Assign to Sub-category</Form.Label>
           <Form.Select name="subCatId" onChange={handleOnChange} required>
             <option value="">Select Sub-category</option>
-            {categories.length > 0 &&
-              categories.map(
-                (item, i) =>
-                  item?.catId &&
-                  item.catId === categoryId && (
-                    <option
-                      key={i}
-                      value={item._id}
-                      selected={item._id === form.subCatId}
-                    >
-                      {item.name}
-                    </option>
-                  )
-              )}
+            {categories.map((item, i) =>
+              item.catId === categoryId ? (
+                <option key={i} value={item._id} selected={item._id === form.subCatId}>
+                  {item.name}
+                </option>
+              ) : null
+            )}
           </Form.Select>
         </Form.Group>
+
         <Form.Group className="py-3">
-          <Form.Label>Assign to Products</Form.Label>
+          <Form.Label>Assign to Product</Form.Label>
           <Form.Select name="productId" onChange={handleOnChange} required>
             <option>Select Product</option>
-            {Products.length > 0 &&
-              Products.map(
-                (item, i) =>
-                  item?.subCatId &&
-                  item?.subCatId &&
-                  item.catId === categoryId &&
-                  item.subCatId === subCategoryId && (
-                    <option
-                      key={i}
-                      value={item._id}
-                      selected={item._id === form.productId}
-                    >
-                      {item.name}
-                    </option>
-                  )
-              )}
+            {Products.map((item, i) =>
+              item.catId === categoryId && item.subCatId === subCategoryId ? (
+                <option key={i} value={item._id} selected={item._id === form.productId}>
+                  {item.name}
+                </option>
+              ) : null
+            )}
           </Form.Select>
         </Form.Group>
+
         {inputFields.map((item, i) => (
           <CustomInputField
             {...item}
             key={i}
-            onChange={
-              item.name === "images" ? handleOnImageSelect : handleOnChange
-            }
-          ></CustomInputField>
+            onChange={item.name === "images" ? handleOnImageSelect : handleOnChange}
+          />
         ))}
+
         <div className="my-5 d-flex flex-wrap">
-          {selectedItem?.images &&
-            selectedItem.images.map((imgLink) => {
-              return (
-                <div className="p-1" key={imgLink}>
-                  <Form.Check
-                    type="radio"
-                    label="use as thumbnail"
-                    value={imgLink.secure_url}
-                    name="thumbnail"
-                    onChange={handleOnChange}
-                    checked={imgLink.secure_url === form.thumbnail}
-                  />
-                  <img
-                    src={imgLink.secure_url}
-                    // crossOrigin="anonymous"
-                    width="70rem"
-                    alt=""
-                  ></img>
-                  <Form.Check
-                    label="Delete"
-                    value={imgLink.public_id}
-                    onChange={handleOnImageDelete}
-                  ></Form.Check>
-                </div>
-              );
-            })}
+          {selectedItem?.images?.map((imgLink) => (
+            <div className="p-1" key={imgLink.public_id}>
+              <Form.Check
+                type="radio"
+                label="Use as thumbnail"
+                value={imgLink.secure_url}
+                name="thumbnail"
+                onChange={handleOnChange}
+                checked={imgLink.secure_url === form.thumbnail}
+              />
+              <img src={imgLink.secure_url} width="70rem" alt="" />
+              <Form.Check
+                label="Delete"
+                value={imgLink.public_id}
+                onChange={handleOnImageDelete}
+              />
+            </div>
+          ))}
         </div>
+        {/* ------------------- Filter Editing Section ------------------- */}
+        {form?.filters?.length > 0 && (
+          <>
+            <Form.Group className="mt-4">
+              <Form.Label>Filter Name</Form.Label>
+              <Form.Control
+                name="filterName"
+                value={form?.filterName || ""}
+                readOnly
+                plaintext
+              />
+            </Form.Group>
+
+            <div className="mb-3">
+              <Form.Label>Current Filters</Form.Label>
+              <div className="d-flex flex-wrap gap-2">
+                {form.filters.map((filt, idx) => (
+                  <div
+                    key={idx}
+                    className="border rounded px-2 py-1 d-flex align-items-center"
+                  >
+                    <span className="me-2">{filt}</span>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => {
+                        const updatedFilters = form.filters.filter((_, i) => i !== idx);
+                        setForm({ ...form, filters: updatedFilters });
+                      }}
+                    >
+                      x
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <Form.Group className="d-flex align-items-end gap-2 mb-4">
+              <Form.Control
+                placeholder="Add a new filter"
+                value={form.newFilter || ""}
+                onChange={(e) => setForm({ ...form, newFilter: e.target.value })}
+              />
+              <Button
+                variant="primary"
+                onClick={() => {
+                  if (!form.newFilter?.trim()) return;
+                  const updated = [...(form.filters || []), form.newFilter.trim()];
+                  setForm({ ...form, filters: updated, newFilter: "" });
+                }}
+              >
+                Add
+              </Button>
+            </Form.Group>
+          </>
+        )}
+        {/* -------------------------------------------------------------- */}
+
 
         <Button variant="success" type="submit">
           Update Product
