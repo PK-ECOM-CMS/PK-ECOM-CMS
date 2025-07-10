@@ -16,7 +16,6 @@ const initialState = {
   width: "",
   weight: "",
   fromSuburb: "",
-  fromState: "",
   fromPostCode: "",
   sku: "",
   quantity: "",
