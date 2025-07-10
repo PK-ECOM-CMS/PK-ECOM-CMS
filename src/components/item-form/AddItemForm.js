@@ -267,20 +267,6 @@ export const AddItemForm = () => {
               )}
           </Form.Select>
         </Form.Group>
-        <Form.Group className="py-3">
-          <Form.Label>Select State</Form.Label>
-          <Form.Select name="fromState" onChange={handleOnChange} required>
-            <option value="">Select State</option>
-            <option value="ACT">ACT</option>
-            <option value="NSW">NSW</option>
-            <option value="NT">NT</option>
-            <option value="QLD">QLD</option>
-            <option value="SA">SA</option>
-            <option value="TAS">TAS</option>
-            <option value="VIC">VIC</option>
-            <option value="WA">WA</option>
-          </Form.Select>
-        </Form.Group>
         {inputFields.map((item, i) => (
           <CustomInputField
             {...item}
